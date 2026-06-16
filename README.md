@@ -32,7 +32,7 @@ This project demonstrates the end-to-end deployment of a hardened, bare-metal Se
 ### 📁 [Phase 2: Transport Security & Firewall Optimization](./02-siem-deployment/)
 * **Objective:** Open secure communication pipelines between Windows endpoints and the Ubuntu core manager.
 * **Key Hurdles Overcome:** Diagnosed and bypassed agent-auth network dropouts (Error 1208) by auditing active network sockets.
-* **Security Control Implemented:** Implemented a restricted Uncomplicated Firewall (UFW) profile, strictly opening incoming traffic to ports `1514/udp` (events) and `1515/tcp` (enrollment), followed by a systemd cycle to initialize the `authd` registration service.
+* **Security Control Implemented:** Implemented a restricted Uncomplicated Firewall (UFW) profile, strictly opening incoming traffic to ports `<PORT>/udp` (events) and `<PORT>/tcp` (enrollment), followed by a systemd cycle to initialize the `authd` registration service.
 
 ### 📁 [Phase 3: Multi-Agent Onboarding & Telemetry Validation](./02-siem-deployment/)
 * **Objective:** Scale the environment to support a distributed monitoring topology.
@@ -41,4 +41,4 @@ This project demonstrates the end-to-end deployment of a hardened, bare-metal Se
 
 ### 📁 [Phase 4: Containerized SOAR Integration (In Progress)](./03-soar-automation/)
 * **Objective:** Deploy a microservices pipeline to act as an automated phishing analysis platform.
-* **Current Focus:** Allocating Linux kernel virtual memory space (`vm.max_map_count`) to support back-end OpenSearch database clustering, pulling the Shuffle engine via Git, and configuring custom UFW routing for frontend delivery over port `3001`.
+* **Current Focus:** Allocating Linux kernel virtual memory space (`vm.max_map_count`) to support back-end OpenSearch database clustering, pulling the Shuffle engine via Git, and configuring custom UFW routing for frontend delivery over port `<PORT>`.
