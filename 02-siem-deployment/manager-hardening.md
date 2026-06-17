@@ -31,3 +31,20 @@ sudo ufw reload
 
 # Validate the active firewall policy profile
 sudo ufw status verbose
+```
+
+### Step 2. Sockets & Listener Auditing
+To verify that the operating system was correctly hosting the enrollment service after the firewall adjustment, the network utility layer was queried to inspect active socket listeners.
+
+```
+# Check if the manager is actively listening on both ports, tcp|udp
+sudo ss -tlpn | grep -E '<PORT>|<PORT>'
+```
+
+### Step 3: Initialization & Handshake Validation
+
+
+
+
+
+
