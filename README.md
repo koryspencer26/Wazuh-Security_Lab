@@ -1,38 +1,38 @@
 # Wazuh-Security_Lab
 
 ## Project Overview
-This project demonstrates the end-to-end deployment of a hardened, bare-metal Security Operations Center (SOC) ecosystem integrated with Security Orchestration, Automation, and Response (SOAR) capabilities. The architecture captures live security telemetry from multiple endpoints, streams logs securely to a centralized Linux-based SIEM, and leverages containerized automation pipelines to simulate an enterprise-grade threat detection and incident response environment.
+This project covers the end-to-end deployment of a home lab Security Operations Center (SOC) integrated with automated incident response (SOAR) capabilities. The setup captures live security telemetry from multiple Windows endpoints, streams logs to a centralized bare-metal Ubuntu SIEM via Wazuh, and will soon use containerized automation pipelines to simulate real-world threat detection and incident response via Shuffle.
 
 ---
 
-## Technical Architecture & Flow
-1. **Endpoint Telemetry Generation:** Continuous monitoring of system, security, and application logs on endpoints via specialized host agents.
-2. **Secure Transport Layer:** Logs are forwarded over custom UDP/TCP streams to a dedicated infrastructure manager operating on a hardened static IP network.
-3. **Log Aggregation & Rule Indexing:** The centralized SIEM engine parses raw telemetry against predefined threat detection rulesets, outputting alerts to a web management console.
-4. **SOAR Orchestration:** A containerized automation stack hooks into the environment via APIs and sockets to process security events, execute playbooks, and integrate with open-source threat intelligence platforms.
+## Technical Architecture & Data Flow
+* **Telemetry Generation:** Wazuh agents monitor system, security, and application logs on endpoints in real time.
+* **Log Forwarding:** Agents forward logs securely over designated UDP/TCP ports to a dedicated Ubuntu server on a static IP.
+* **Aggregation & Alerting:** The Wazuh manager parses raw logs against detection rulesets and triggers alerts in the web dashboard.
+* **SOAR Automation:** A containerized Shuffle SOAR stack connects via APIs to ingest alerts, run playbooks, and query open-source threat intelligence platforms.
 
 ---
 
 ## Environment Specifications
-* **Infrastructure Host (SIEM/SOAR Manager):** Ubuntu Server (Bare Metal Architecture)
-* **Endpoint 001:** Windows 11 Workspace Device (Wazuh Agent Active)
-* **Endpoint 002:** Windows 11 Secondary Device (Wazuh Agent Active)
-* **Containerization Engine:** Docker Engine & Docker Compose
-* **Automation Platform:** Shuffle SOAR
+* **SIEM/SOAR Manager:** Ubuntu Server (Bare Metal)
+* **Endpoint 001:** Windows 11 Workstation (Wazuh Agent)
+* **Endpoint 002:** Windows 11 Laptop (Wazuh Agent)
+* **Containers:** Docker Engine & Docker Compose
+* **Automation:** Shuffle SOAR
 
 ---
 
 ## Project Phase Breakdown
 
 ### 📁 [Phase 1: Linux Networking & Physical Layer Hardening](./01-network-infrastructure/)
-* **Objective:** Establish a rock-solid, headless server network baseline over wireless architecture.
-* **Key Hurdles Overcome:** Remediation of configuration drift and "split-brain" routing loops caused by competing Netplan YAML blocks. Isolated specific hardware interfaces (`wlp2s0`) over standard generic logic (`wlan0`).
-* **Security Control implemented:** Hardened configuration file permissions to `chmod 600` to prevent credential exposure.
+* **Objective:** Configure an Ubuntu Server baseline over a wireless network interface.
+* **Troubleshooting & Fixes:** Discovered a routing loop and configuration issue caused by conflicting Netplan YAML blocks. Resolved this by isolating the specific hardware interface (`wlp2s0`) instead of relying on generic (`wlan0`) logic.
+* **Security Hardening:** Restructured Netplan configuration file permissions to `chmod 600` to protect network configurations.
 
 ### 📁 [Phase 2: Transport Security & Firewall Optimization](./02-siem-deployment/)
-* **Objective:** Open secure communication pipelines between Windows endpoints and the Ubuntu core manager.
-* **Key Hurdles Overcome:** Diagnosed and bypassed agent-auth network dropouts (Error 1208) by auditing active network sockets.
-* **Security Control Implemented:** Implemented a restricted Uncomplicated Firewall (UFW) profile, strictly opening incoming traffic to ports `<PORT>/udp` (events) and `<PORT>/tcp` (enrollment), followed by a systemd cycle to initialize the `authd` registration service.
+* **Objective:** Establish secure communication channels between the Windows endpoints and the Ubuntu Server.
+* **Troubleshooting & Fixes:** Diagnosed and fixed agent authentication dropouts (Error 1208) by auditing active listening ports on the host.
+* **Security Hardening:** Configured a strict Uncomplicated Firewall (UFW) profile, opening only the exact ports needed for Wazuh registration (`tcp/<PORT>`) and log collection (`udp/<PORT>`), followed by a `systemd` restart to properly initialize the `authd` service.
 
 ### 📁 [Phase 3: Multi-Agent Onboarding & Telemetry Validation](./02-siem-deployment/)
 * **Objective:** Scale the environment to support a distributed monitoring topology.
