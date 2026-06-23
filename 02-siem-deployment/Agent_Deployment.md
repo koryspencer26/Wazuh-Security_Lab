@@ -1,8 +1,11 @@
 # Phase 3: Multi-Agent Deployment & Telemetry Validation
+## Objective: 
+Scale the lab environment to support multi-node monitoring.
+
+---
 
 ## Endpoint Onboarding & Scaling
 
----
 
 ### Step 1: Manual Agent Authentication (Windows 11)
 With the server listening, I opened an elevated PowerShell prompt on the Windows endpoint to run the authentication binary and trigger a secure key exchange with the manager:
