@@ -1,4 +1,4 @@
-# Wazuh-Security_Lab
+# Wazuh_Security_Lab
 
 ## Project Overview
 This project details the end-to-end deployment of a home security lab, setting up a centralized Security Operations Center (SOC) with automated incident response (SOAR) capabilities. The environment captures live security telemetry from multiple Windows endpoints, streams logs to a dedicated bare-metal Ubuntu Server running a Wazuh SIEM manager, and uses containerized automation playbooks via Shuffle SOAR to simulate real-world threat detection and incident response.
